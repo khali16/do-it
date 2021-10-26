@@ -1,30 +1,23 @@
-import { Box, ListItemText, ListItem, List, Checkbox } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { List } from "@material-ui/core";
 import React from "react";
-import { RootStateOrAny, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import SingleTodo from "./SingleTodo";
+import { useStyles } from "./Styles/styles";
 
 const Todos = () => {
   const todos = useSelector((state: RootState) => state.todos);
+  const classes = useStyles();
 
   return (
-    <List
-      style={{
-        width: "50%",
-        margin: "auto",
-        marginTop: "5%",
-      }}
-    >
-      {/* //@ts-ignore */}
+    <List className={classes.todosList}>
       {todos.map((todo) => (
-        <ListItem
-          key={todo.id}
-          style={{ marginTop: "5px", border: "1px solid grey" }}
-        >
-          <Checkbox />
-          <ListItemText>{todo.title}</ListItemText>
-          <DeleteIcon />
-        </ListItem>
+        <SingleTodo
+          id={todo.id}
+          title={todo.title}
+          completed={todo.completed}
+          priority={todo.priority}
+        />
       ))}
     </List>
   );
